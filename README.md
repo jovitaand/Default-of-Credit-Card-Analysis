@@ -53,12 +53,12 @@ Enhanced the dataset with the following derived features:
 - **Balanced Accuracy**: Accounts for class imbalance.
 - **Precision, Recall, F1-score**: To assess model effectiveness across both classes.
 
-| Model              | Balanced Accuracy | Precision (Default) | Recall (Default) | F1-score (Default) |
-|--------------------|-------------------|---------------------|------------------|--------------------|
-| Random Forest      | 66.66%           | 0.60                | 0.41             | 0.49               |
-| Logistic Regression| 67.04%           | 0.61                | 0.42             | 0.50               |
-| XGBoost            | 68.51%           | 0.48                | 0.54             | 0.51               |
-| Neural Network     | TBD              | TBD                 | TBD              | TBD                |
+| Model              | Accuracy |  
+|--------------------|-------------------| 
+| Random Forest      | 81%           |  
+| Logistic Regression| 70%           |  
+| XGBoost            | 77%           |  
+| Neural Network     | 50%           | 
 
 ---
 
