@@ -1,106 +1,96 @@
 # Analysis of Default of Credit Card Clients
 
 ## Objective
-The goal of this analysis is to predict the likelihood of credit card default by clients based on their demographic and financial features. Additionally, we assess model fairness and interpretability to ensure transparency and ethical outcomes.
+The analysis aims to:
+1. Predict the likelihood of credit card default based on demographic and financial features.
+2. Assess model fairness and interpretability to ensure ethical and transparent outcomes.
 
 ---
 
 ## Dataset Overview
-
-### Source
-The dataset contains information on 30,000 credit card clients in Taiwan and includes 25 features such as:
-- **Demographic attributes**: AGE, SEX, EDUCATION, MARRIAGE
-- **Financial attributes**: LIMIT_BAL, BILL_AMT (bill statements), PAY_AMT (payment amounts)
-- **Repayment status**: PAY_0 through PAY_6
-- **Target variable**: `default.payment.next.month` (1 = default, 0 = no default)
-
-### Key Statistics
-- Total records: 30,000
-- Class distribution:
-  - Default: ~22%
-  - Non-default: ~78%
+- **Source:** Data on 30,000 credit card clients in Taiwan.
+- **Features:** 
+  - **Demographic Attributes:** AGE, SEX, EDUCATION, MARRIAGE
+  - **Financial Attributes:** LIMIT_BAL, BILL_AMT, PAY_AMT
+  - **Repayment Status:** PAY_0 to PAY_6
+  - **Target Variable:** `default.payment.next.month` (1 = Default, 0 = No Default)
+- **Key Statistics:**
+  - **Total Records:** 30,000
+  - **Class Distribution:** 
+    - Default: ~22%
+    - Non-default: ~78%
 
 ---
 
 ## Methodology
 
 ### 1. Data Preprocessing
-- **Missing Values**: None detected in the dataset.
-- **Feature Scaling**: Applied `RobustScaler` to normalize skewed features like LIMIT_BAL and BILL_AMT.
-- **Outlier Handling**: Addressed extreme values in features such as CREDIT_UTILIZATION and PAYMENT_TO_BILL_RATIO.
-- **Class Balancing**: Used oversampling to balance the class distribution, ensuring equal representation of default and non-default cases.
+- **Missing Values:** None detected.
+- **Feature Scaling:** Applied `RobustScaler` to normalize skewed features.
+- **Outlier Handling:** Addressed extreme values in CREDIT_UTILIZATION and PAYMENT_TO_BILL_RATIO.
+- **Class Balancing:** Oversampled minority class to address imbalance.
 
 ### 2. Feature Engineering
-Enhanced the dataset with the following derived features:
-- **CREDIT_UTILIZATION**: Total bill amounts divided by credit limit.
-- **AVG_REPAY_DELAY**: Average repayment delay across six months.
-- **MAX_REPAY_DELAY**: Maximum repayment delay.
-- **TOTAL_PAYMENTS**: Sum of payment amounts across six months.
-- **PAYMENT_TO_BILL_RATIO**: Ratio of total payments to total bills.
+Derived features added:
+- **CREDIT_UTILIZATION:** Total bill amounts divided by credit limit.
+- **AVG_REPAY_DELAY:** Average repayment delay across six months.
+- **MAX_REPAY_DELAY:** Maximum repayment delay.
+- **TOTAL_PAYMENTS:** Total payment amounts across six months.
+- **PAYMENT_TO_BILL_RATIO:** Ratio of total payments to total bills.
 
 ---
 
 ## Models and Evaluation
 
 ### Models Used
-1. **Random Forest**
-2. **Logistic Regression**
-3. **XGBoost**
-4. **Neural Network**
+1. Random Forest
+2. Logistic Regression
+3. XGBoost
+4. Neural Network
 
 ### Performance Metrics
-- **Confusion Matrix**: To evaluate true positives, true negatives, false positives, and false negatives.
-- **Balanced Accuracy**: Accounts for class imbalance.
-- **Precision, Recall, F1-score**: To assess model effectiveness across both classes.
+- **Confusion Matrix:** True positives, true negatives, false positives, and false negatives.
+- **Balanced Accuracy:** Accounts for class imbalance.
+- **Precision, Recall, F1-Score:** Assesses effectiveness across both classes.
 
-| Model              | Accuracy |  
-|--------------------|-------------------| 
-| Random Forest      | 81%           |  
-| Logistic Regression| 70%           |  
-| XGBoost            | 77%           |  
-| Neural Network     | 50%           | 
-
----
-
-## Explainability
-
-### SHAP Analysis
-- **Global Importance**:
-  - Features like CREDIT_UTILIZATION and TOTAL_BILLS have the highest contribution to predictions.
-  - Demographic features (SEX, MARRIAGE) have minimal impact.
-- **Local Importance**:
-  - For individual predictions, high repayment delays significantly influence default likelihood.
-
-### LIME Explanation
-- Provided case-specific interpretations for individual predictions.
-- Demonstrated transparency by explaining how each feature affected the prediction for a sample client.
+| **Model**            | **Accuracy** |
+|-----------------------|--------------|
+| Random Forest         | 81%          |
+| Logistic Regression   | 70%          |
+| XGBoost               | 77%          |
+| Neural Network        | 50%          |
 
 ---
 
-## Fairness Analysis
-### Metrics
-- **Demographic Parity Difference**: Measures the difference in positive prediction rates across gender groups.
-- **Equalized Odds Difference**: Evaluates discrepancies in error rates (false positives and negatives) across groups.
+## Explainability and Fairness
 
-### Findings
-- **Demographic Parity Difference**: 0.12
-- **Equalized Odds Difference**: 0.09
-- Some bias was detected, suggesting room for improvement in ensuring fairness.
+### Explainability
+- **SHAP Analysis:**
+  - **Global Importance:** Features like CREDIT_UTILIZATION and TOTAL_BILLS contribute most to predictions.
+  - **Local Importance:** High repayment delays influence individual default likelihoods.
+- **LIME Explanation:**
+  - Provided case-specific interpretations for transparency.
+
+### Fairness Analysis
+- **Metrics:**
+  - Demographic Parity Difference: 0.12
+  - Equalized Odds Difference: 0.09
+- **Findings:** 
+  - Slight biases detected, with women and older individuals flagged disproportionately as high-risk.
 
 ---
 
-## Conclusion
-- **Best Model**: XGBoost showed the highest balanced accuracy and interpretability.
-- **Fairness**: While the models performed well overall, slight biases exist that need mitigation.
-- **Recommendations**:
-  1. Apply post-processing fairness techniques.
+## Conclusions
+- **Best Model:** XGBoost demonstrated the best balance of accuracy and interpretability.
+- **Fairness Issues:** Biases in demographic and financial features require mitigation.
+- **Recommendations:**
+  1. Apply fairness post-processing techniques.
   2. Use SHAP and LIME insights to refine features and thresholds.
-  3. Regularly monitor model performance for fairness and drift.
+  3. Regularly monitor for fairness and data drift.
 
 ---
 
 ## Future Work
-- Explore advanced ensemble techniques.
-- Implement real-time monitoring of model fairness.
-- Incorporate additional features to enhance predictive power.
-  
+- Explore advanced ensemble methods.
+- Implement real-time fairness monitoring.
+- Incorporate additional features to enhance model performance.
